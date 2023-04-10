@@ -1,0 +1,33 @@
+--- Create a clothing store database -----
+CREATE TABLE MeshaCloset (id INTEGER PRIMARY KEY, apparel TEXT, size TEXT, price INTEGER, aisle INTEGER, quantity INTEGER);
+
+INSERT INTO MeshaCloset VALUES
+(1, 'Graphic T-shirt','small', 20.00, 1, 100);
+INSERT INTO MeshaCloset VALUES
+(2, 'Plain T-shirt','small', 22.00, 1, 50 );
+INSERT INTO MeshaCloset VALUES
+(3, 'Hat', 'medium', 30.00, 4, 150 );
+INSERT INTO MeshaCloset VALUES
+(4, 'Graphic long T-shirt', 'medium', 35.00, 2, 20 );
+INSERT INTO MeshaCloset VALUES
+(5, 'Distress Jean', 'large', 50.00, 2, 80 );
+INSERT INTO MeshaCloset VALUES
+(6, 'Cargo shorts', 'large', 45.00, 3, 40 );
+INSERT INTO MeshaCloset VALUES
+(7, 'Khaki Shorts', 'xx-large', 40.00, 5, 65 );
+
+--------- DISPLAY Total inventory -----------
+
+SELECT SUM(quantity)
+FROM MeshaCloset
+
+--------- DISPLAY the database ordered by quantity -------
+
+SELECT *
+FROM MeshaCloset
+ORDER BY quantity desc
+
+---------- DISPLAY: how many items in each aisle, group by aisle -------
+SELECT aisle, apparel, quantity
+FROM MeshaCloset
+GROUP BY aisle
