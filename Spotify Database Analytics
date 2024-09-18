@@ -1,0 +1,85 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+#Then I inserted the Spotify Data .csv into the table.
+#Next, I explored the data using the following SQL. 
+
+SELECT * 
+FROM BIT_DB.Spotifydata;
+
+#Determined who the Top 10 artists are by popularity
+
+SELECT track_name, artist_name, popularity
+FROM BIT_DB.spotifydata
+ORDER BY popularity desc
+LIMIT 10;
+
+#Shows the top 5 artists who had the longest song by sorting the songs in descending order of duraation_ms, 
+#the LIMIT 5 ensures that only the top 5 results are shown.
+
+SELECT artist_name,track_name,duration_ms,time_signature
+FROM BIT_DB.Spotifydata
+ORDER BY duration_ms DESC
+LIMIT 5;
+
+
+#Which artists have the highest average energy in their tracks?
+#Shows the top 5 artists with the highest average energy and group by artist name.
+
+SELECT artist_name, AVG(energy) AS avg_energy
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY avg_energy DESC
+LIMIT 5;
+
+
+
+#Which tracks are likely to be popular based on their energy and danceability?
+#Shows the selected tracks with high energy and danceability 
+
+SELECT artist_name, track_name, energy, danceability
+FROM BIT_DB.Spotifydata
+WHERE energy > 0.6 AND danceability > 0.7
+ORDER BY popularity DESC
+LIMIT 5;
+
+
+#Shows the calculatation of the average danceability for each song_mode (likely 1 for major, 0 for minor). 
+#It groups the data by the mode and orders the results to show which mode has higher danceability on average.
+
+SELECT artist_name, track_name, song_mode, AVG(danceability) AS avg_danceability
+FROM BIT_DB.Spotifydata
+GROUP BY song_mode
+ORDER BY avg_danceability DESC;
+
+#Shows songs that should be promoted based on a combination 
+#of high popularity and high energy
+
+
+SELECT artist_name, track_name, popularity, energy
+FROM BIT_DB.Spotifydata
+WHERE popularity > 80 AND energy > 0.8
+ORDER BY popularity DESC;
