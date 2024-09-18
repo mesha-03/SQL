@@ -40,5 +40,35 @@ WHERE location = '548 Lincoln St, Seattle, WA 98101'
 GROUP BY product;
 
 
+SELECT orderdate
+FROM BIT_DB.FebSales
+WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00'; 
+
+
+SELECT SUM(quantity)
+FROM BIT_DB.FebSales
+WHERE orderdate like '02/18/19%'
+
+
+--'like' searches the column you give it for the values you type in after like.--
+--'%' tells the SQL code that you are searching for a value that can match anything.--
+-- orderdate comes in the format MM/DD/YY HH:MM --
+-- To only select orderdate when it starts with 02/18/19, but then anything can come after that. --
+-- To select orderdate wherever it starts with 02/18/19, no matter what the time (HH:MM) was.--
+--You can use LIKE for any kind of data, not just dates. --
+--And you can add the % to the front, end, or both sides of the value you're searching for. -- 
+
+
+
+-- List all the products sold in Los Angeles in February, and include how many of each were sold.--
+SELECT Product, SUM(quantity)
+FROM BIT_DB.FebSales
+WHERE location like '%Los Angeles%'
+GROUP BY Product;
+
+
+SELECT distinct Product
+FROM BIT_DB.FebSales
+WHERE Price like '%.99';
 
 
