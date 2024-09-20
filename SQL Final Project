@@ -1,0 +1,48 @@
+-- Here are potential answers to the example questions in the final SQL project.-- 
+-- Show Customers (their full names, customer ID, and country) who are not in the US. -- 
+
+
+
+SELECT FirstName, LastName, CustomerId, Country
+FROM chinook.customers
+WHERE Country <> 'USA';
+
+
+
+
+-- Show only the Customers from Brazil. --
+
+SELECT * 
+FROM chinook.customers 
+WHERE Country = "Brazil" ;
+
+
+
+
+
+-- Find the Invoices of customers who are from Brazil.--
+--The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country. --
+--SN: the INNER JOIN ensures we only retrieve matching records between the customers and invoices tables,--
+--focusing on customers from Brazil based on the BillingCountry. --
+
+SELECT cust.FirstName, cust.LastName, inv.InvoiceId, inv.InvoiceDate, inv.BillingCountry
+FROM chinook.customers cust
+INNER JOIN chinook.invoices inv
+ON cust.CustomerId = inv.CustomerId
+WHERE inv.BillingCountry = 'Brazil';
+
+
+
+--Show the Employees who are Sales Agents.--
+
+SELECT FirstName, LastName, Title
+FROM chinook.employees
+WHERE Title = 'Sales Support Agent';
+
+
+
+
+-- Find a unique/distinct list of billing countries from the Invoice table.--
+
+SELECT DISTINCT BillingCountry 
+FROM chinook.Invoices ;
